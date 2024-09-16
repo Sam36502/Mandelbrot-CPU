@@ -3,7 +3,7 @@
 #
 
 VERSION = 0.1.0
-BIN = mandelbrot_software
+BIN = mandelbrot
 
 CC = gcc
 CFLAGS = -Wall -g
@@ -21,7 +21,7 @@ run: build
 	@echo -e '### Running... ###\n'
 	@./$(BIN)
 
-build: $(OBJS)
+build: $(OBJ) $(OBJS)
 	@echo '\n### Linking... ###'
 	${CC} ${CFLAGS} -o ${BIN}.exe $(OBJS) $(addprefix -l,$(LIBS))
 
@@ -33,6 +33,10 @@ clean:
 	@echo -e '### Cleaning... ###\n'
 	-rm $(BIN).exe
 	-rm -r $(OBJ)
+	mkdir -p $(OBJ)
+
+$(OBJ):
+	@echo -e '### Creating object directory... ###\n'
 	mkdir -p $(OBJ)
 
 $(OBJ)/%.o: $(SRC)/%.c $(SRC)/%.h
